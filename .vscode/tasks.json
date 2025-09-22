@@ -1,0 +1,22 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "Start Jupyter Lab",
+			"type": "shell",
+			"command": "mamba",
+			"args": [
+				"run",
+				"-n",
+				"health-analysis",
+				"jupyter",
+				"lab",
+				"--notebook-dir=.",
+				"--no-browser"
+			],
+			"isBackground": true,
+			"problemMatcher": [],
+			"group": "build"
+		}
+	]
+}
