@@ -39,9 +39,18 @@ class AppleHealthParser:
             return True
         except ET.ParseError as e:
             logging.error(f"Error parsing XML file: {e}")
+            logging.error(
+                "This is likely due to a corrupted or incomplete Apple Health export."
+            )
+            logging.error(
+                "Apple Health XML files can be very large and may get truncated during export."
+            )
             return False
         except FileNotFoundError:
             logging.error(f"XML file not found: {self.xml_file_path}")
+            return False
+        except Exception as e:
+            logging.error(f"Unexpected error loading XML file: {e}")
             return False
 
     def extract_health_records(
@@ -186,7 +195,7 @@ class AppleHealthParser:
 
 if __name__ == "__main__":
     # Example usage
-    parser = AppleHealthParser("../data/raw/export.xml")
+    parser = AppleHealthParser("../data/raw/apple_health_export/export.xml")
     if parser.load_xml():
         glucose_data = parser.get_glucose_data()
         activity_data = parser.get_activity_data()

@@ -37,7 +37,9 @@ class LibreGlucoseProcessor:
 
             for encoding in encodings:
                 try:
-                    self.raw_data = pd.read_csv(self.csv_file_path, encoding=encoding)
+                    self.raw_data = pd.read_csv(
+                        self.csv_file_path, encoding=encoding, skiprows=1
+                    )
                     logging.info(f"Successfully loaded CSV with {encoding} encoding")
                     break
                 except UnicodeDecodeError:
@@ -76,20 +78,28 @@ class LibreGlucoseProcessor:
             "Time": "timestamp",
             "Date": "date",
             # Glucose value columns
+            "Historic Glucose mg/dL": "glucose_mg_dl",
             "Historic Glucose (mg/dL)": "glucose_mg_dl",
             "Historic Glucose mmol/L": "glucose_mmol_l",
             "Glucose Value (mg/dL)": "glucose_mg_dl",
             "Glucose Value (mmol/L)": "glucose_mmol_l",
             "Record Type": "record_type",
             # Scan glucose (real-time readings)
+            "Scan Glucose mg/dL": "scan_glucose_mg_dl",
             "Scan Glucose (mg/dL)": "scan_glucose_mg_dl",
             "Scan Glucose mmol/L": "scan_glucose_mmol_l",
             # Strip glucose (fingerstick readings)
+            "Strip Glucose mg/dL": "strip_glucose_mg_dl",
             "Strip Glucose (mg/dL)": "strip_glucose_mg_dl",
             "Strip Glucose mmol/L": "strip_glucose_mmol_l",
             # Additional fields
             "Notes": "notes",
             "Serial Number": "serial_number",
+            "Device": "device",
+            "Ketone mmol/L": "ketone_mmol_l",
+            "Rapid-Acting Insulin (units)": "rapid_acting_insulin_units",
+            "Carbohydrates (grams)": "carbohydrates_grams",
+            "Long-Acting Insulin (units)": "long_acting_insulin_units",
         }
 
         # Apply mappings
